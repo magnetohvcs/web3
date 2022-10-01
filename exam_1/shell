@@ -1,0 +1,94 @@
+# !/bin/bash
+
+
+curl --location --request POST '172.16.254.3:8545' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "admin_peers",
+    "params": []
+}'
+
+
+curl --location --request POST '172.16.254.3:8545' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "jsonrpc": "2.0",
+    "id": 4,
+    "method": "eth_getBalance",
+    "params": [
+        "0x660aebfd6dc2756e3a68607c0f60f80b12806bc9",
+        "latest"
+    ]
+}'
+
+curl --location --request POST 'http://172.16.254.3:8545' \
+--header 'Content-type: application/json' \
+--data-raw '{
+    "jsonrpc": "2.0",
+    "id": 5,
+    "method": "personal_newAccount",
+    "params": [
+        "5uper53cr3t"
+    ]
+}'
+
+curl --location --request POST 'http://172.16.254.3:8545' \
+--header 'Content-type: application/json' \
+--data-raw '{
+    "jsonrpc": "2.0",
+    "id": 6,
+    "method": "personal_unlockAccount",
+    "params": [
+        "0x660aebfd6dc2756e3a68607c0f60f80b12806bc9",
+        "5uper53cr3t"
+    ]
+}'
+
+curl --location --request POST '172.16.254.3:8545' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "jsonrpc": "2.0",
+    "id": 7,
+    "method": "eth_sendTransaction",
+    "params": [
+        {
+            "from": "0x660aebfd6dc2756e3a68607c0f60f80b12806bc9",
+            "to": "0xed6aa9d5451656d5424a2c73a5e0279e44ae9b83",
+            "value": "0xf4240"
+        }
+    ]
+}'
+
+curl --location --request POST '172.16.254.3:8545' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "jsonrpc": "2.0",
+    "id": 8,
+    "method": "eth_getTransactionByHash",
+    "params": [        "0x5d384fa4eef5fb6d7eb0a13aa6824c3bdb1abb697d4b08943403403ed0fa2dbc"
+    ]
+}'
+
+curl --location --request POST '172.16.254.3:8545' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "jsonrpc": "2.0",
+    "id": 9,
+    "method": "eth_getBalance",
+    "params": [
+        "0xed6aa9d5451656d5424a2c73a5e0279e44ae9b83",
+        "latest"
+    ]
+}'
+
+curl --location --request POST '172.16.254.3:8545' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "jsonrpc": "2.0",
+    "id": 3,
+    "method": "eth_accounts",
+    "params": []
+}'
+
