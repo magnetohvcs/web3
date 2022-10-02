@@ -63,7 +63,7 @@ services:
         ipv4_address: 172.16.254.4
 
 
-  monitoring:
+  monitor:
     build: monitor
     volumes:
       - ./monitor/app:/app:rw
@@ -72,11 +72,13 @@ services:
     depends_on:
       - geth-bootnode
     links:  
-      - "my_node"
-      - "another_node"
+      - my_node
+      - another_node
     command:
       - python
       - /app/main.py
+    networks:
+      priv-eth-net:
 
 networks:
   priv-eth-net:

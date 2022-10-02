@@ -1,33 +1,32 @@
-import logging, os, time
+import os, time
 from slack_sdk import WebClient
 from web3 import Web3, HTTPProvider
+import requests
 
+# Init data
 channel = os.getenv('channel')
-token = os.getenv('slack_tone')
-time_sleep = os.getenv('time_sleep')
-
+token = os.getenv('slack_token')
+time_sleep = int(os.getenv('time_sleep'))
 client = WebClient(token=token)
-logger = logging.getLogger(__name__)
-
+myNode = os.getenv('my_node')
+anotherNode = os.getenv('another_node')
+threshold = int(os.getenv('threshold_block'))
 
 def getBlockNumber(node):
     # https://www.quicknode.com/docs/ethereum/eth_blockNumber
-    
 	w3 = Web3(HTTPProvider(f"http://{node}:8545"))
 	total = w3.eth.blockNumber
-	logging.info(f"The number block of {node} is {total}")
+	print(f"The number block of {node} is {total}")
 	return total
 
 
-
-def notification():
-
+def notification(myTotal, anotherTotal):
     message = [
     {
 			"type": "header",
 			"text": {
 				"type": "plain_text",
-				"text": "Security Testing  "
+				"text": "My node is slower than another node"
 			}
 		},
 		{
@@ -38,18 +37,30 @@ def notification():
 			"fields": [
 				{
 					"type": "mrkdwn",
-					"text": "*Site* "
-				},
-				{
-					"type": "mrkdwn",
-					"text": "*Information*"
+					"text": f"My blocks: `{myTotal}` \nAnother blocks: `{anotherTotal}`"
 				}
 			]
 		}
     ]
 
-    response = client.chat_postMessage(blocks=message, channel=channel)
-    logger.info(response)
+    client.chat_postMessage(blocks=message, channel=channel)
+
     
 if __name__ == "__main__":
-    getBlockNumber("my_node")
+	retry = 1
+	while True:
+		try:
+			myTotal = getBlockNumber(myNode)
+			anotherTotal = getBlockNumber(anotherNode)
+			if (anotherTotal - myTotal) > threshold:
+				notification(myTotal, anotherTotal)
+
+			time.sleep(time_sleep)
+   
+		except requests.exceptions.ConnectionError as e:
+			print(f"Retry connect #{retry} due to\n", e)
+			time.sleep(2)
+			retry += 1
+		except Exception as e:
+			print(e)
+			break

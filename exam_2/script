@@ -85,7 +85,7 @@ function check_price(){
         # Logging to debug 
         echo "The price of $token is \$$_price at `date +%y/%m/%d-%H:%M`"
 
-        # Parse to int in order to comparse the current price and the expected price, stderr to /dev/null due to it will raise the expection - 'printf: 1330.82: invalid number'
+        # Parse to int in order to comparse the current price and the expected price, ignore stderr due to it will raise the expection about 'printf: 1330.82: invalid number'
         if [ $(printf "%d" "$_price" 2>/dev/null) -gt $price ]
         then
             notification $token $_price

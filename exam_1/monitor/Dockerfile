@@ -1,4 +1,5 @@
-FROM python:3-alpine
+FROM python:3.9
+
 
 COPY app/requirement.txt requirement.txt
 RUN pip install -r requirement.txt 
