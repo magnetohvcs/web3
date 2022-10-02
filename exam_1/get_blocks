@@ -11,15 +11,3 @@ curl '172.16.254.3:8545' \
       "params":[]
     }
   ]'
-
-curl '172.16.254.5:8545' \
-  -X POST \
-  -H "Content-Type: application/json" \
-  -d $'[
-    {
-      "jsonrpc": "2.0",
-      "id":1,
-      "method":"eth_blockNumber",
-      "params":[]
-    }
-  ]'
