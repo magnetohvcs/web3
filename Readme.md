@@ -9,7 +9,7 @@
 
 #### Environment of monitor srvice
 
-(__Set environment variable in exam_1/docker/monitor/.env__)
+(_Set environment variable in __exam_1/docker/monitor/.env__)
 
 ||Name|Description|
 |----|-----|------|
@@ -29,9 +29,7 @@
 
 # Exam 2
 
-### Prequires
-
-#### Package
+### Package
 
 Refer: https://stedolan.github.io/jq/download/
 
@@ -39,7 +37,7 @@ Refer: https://stedolan.github.io/jq/download/
 
 - jq 1.5 is in the official Fedora repository. Install using `sudo dnf install jq`.
 
-#### Environment variable
+### Environment variable
 
 ||Name|Description|
 |-|---|-----------|
