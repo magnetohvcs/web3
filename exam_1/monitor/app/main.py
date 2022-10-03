@@ -52,6 +52,7 @@ if __name__ == "__main__":
 		try:
 			myTotal = getBlockNumber(myNode)
 			anotherTotal = getBlockNumber(anotherNode)
+   
 			if (anotherTotal - myTotal) > threshold:
 				notification(myTotal, anotherTotal)
 
@@ -61,6 +62,7 @@ if __name__ == "__main__":
 			print(f"Retry connect #{retry} due to\n", e)
 			time.sleep(2)
 			retry += 1
+   
 		except Exception as e:
 			print(e)
 			break
