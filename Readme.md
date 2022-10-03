@@ -18,4 +18,4 @@ Refer: https://stedolan.github.io/jq/download/
 |-|---|-----------|
 |1|SLACK_TOKEN|slack token in order to authen and post message via api|
 |2|SLACK_CHANNEL| channel's Id to recevice notication from chat bot|
-|3|TIME_SLEEP| The time to re-check price of token|
+|3|TIME_SLEEP| The time to re-check the price of token|

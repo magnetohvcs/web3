@@ -1,0 +1,104 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: geth-bootnode-deployment
+  labels:
+    app: geth-bootnode
+    app.kubernetes.io/name: geth-bootnode
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: geth-bootnode
+  template:
+    metadata:
+      labels:
+        app: geth-bootnode
+    spec:
+      containers:
+      - name: geth-bootnode
+        image: 0x6e6869/ethereum-node:latest
+        ports:
+        - containerPort: 8545
+        - containerPort: 30303
+        args:
+          - "--nodekeyhex=b0ac22adcad37213c7c565810a50f1772291e7b0ce53fb73e7ec2a3c75bc13b5"
+          - "--nodiscover"
+          - "--ipcdisable"
+          - "--networkid=1214"
+          - "--allow-insecure-unlock"
+          - "--http"
+          - "--http.addr=localhost"
+          - "--http.api=\"eth,web3,net,admin,personal\""
+          - "--http.corsdomain=*"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-deployment
+  labels:
+    app: node
+    app.kubernetes.io/name: node
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node
+  template:
+    metadata:
+      labels:
+        app: node
+    spec:
+      containers:
+      - name: node
+        image: 0x6e6869/ethereum-node:latest
+        ports:
+        - containerPort: 8545
+        - containerPort: 30303
+        args:
+          - "--bootnodes=enode://af22c29c316ad069cf48a09a4ad5cf04a251b411e45098888d114c6dd7f489a13786620d5953738762afa13711d4ffb3b19aa5de772d8af72f851f7e9c5b164a@geth-bootnode-service:30303"
+          - "--allow-insecure-unlock"
+          - "--http"
+          - "--http.addr=localhost"
+          - "--http.api=\"eth,web3,net,admin,personal\""
+          - "--http.corsdomain=*"
+          - "--networkid=1214"
+          - "--mine"
+          - "--miner.threads=1"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monitor-deployment
+  labels:
+    app: monitor
+    app.kubernetes.io/name: monitor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: monitor
+  template:
+    metadata:
+      labels:
+        app: monitor
+    spec:
+      containers:
+      - name: monitor
+        image: 0x6e6869/monitoring-eth-node
+        env:
+        - name: time_sleep
+          value: "30"
+        - name: threshold_block
+          value: "5"
+        - name: my_node
+          value: "node-service"
+        - name: another_node
+          value: "geth-bootnode-service"
+        - name: my_node
+          value: "xoxb-4030150203985-4184537502672-UyJhyffwNj4sTs9kXcQjNvWh"
+        - name: channel
+          value: "C0402U1LSRM"
+

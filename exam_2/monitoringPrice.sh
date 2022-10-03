@@ -10,7 +10,6 @@ function notification(){
     TOKEN=$1
     PRICE=$2
     # Logging to debug
-
     printf "\n------------------------------\n${TOKEN} tokeb with \$${PRICE} is being expected\n------------------------------\n"
 
     SLACK_ATTACHMENT=$(jq -n \
