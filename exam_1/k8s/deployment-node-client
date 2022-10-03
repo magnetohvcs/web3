@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node1-deployment
+  labels:
+    app: node1
+    app.kubernetes.io/name: node1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: node1
+  template:
+    metadata:
+      labels:
+        app: node1
+    spec:
+      containers:
+      - name: node1
+        image: 0x6e6869/ethereum-node:latest
+        ports:
+        - containerPort: 8545
+        args:
+          - "--bootnodes=enode://af22c29c316ad069cf48a09a4ad5cf04a251b411e45098888d114c6dd7f489a13786620d5953738762afa13711d4ffb3b19aa5de772d8af72f851f7e9c5b164a@geth-bootnode-service:30303"
+          - "--allow-insecure-unlock"
+          - "--http"
+          - "--http.addr=\"0.0.0.0\""
+          - "--http.api=\"eth,web3,net,admin,personal\""
+          - "--http.corsdomain=*"
+          - "--networkid=1214"
+          - "--mine"
+          - "--miner.threads=1"
