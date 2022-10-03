@@ -9,6 +9,8 @@
 
 #### Environment of monitor srvice
 
+(__Set environment variable in exam_1/docker/monitor/.env__)
+
 ||Name|Description|
 |----|-----|------|
 |1|slack_token| Slack's token to authentication and notify|
