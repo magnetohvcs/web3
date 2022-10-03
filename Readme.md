@@ -39,7 +39,7 @@ Refer: https://stedolan.github.io/jq/download/
 
 - jq 1.5 is in the official Fedora repository. Install using `sudo dnf install jq`.
 
-### Environment variable
+#### Environment variable
 
 ||Name|Description|
 |-|---|-----------|
