@@ -4,7 +4,7 @@
 
 ### Prequires
 
-#### Command
+#### Package
 
 Refer: https://stedolan.github.io/jq/download/
 
@@ -12,10 +12,10 @@ Refer: https://stedolan.github.io/jq/download/
 
 - jq 1.5 is in the official Fedora repository. Install using `sudo dnf install jq`.
 
-#### Environment
+#### Environment variable
 
 ||Name|Description|
 |-|---|-----------|
 |1|SLACK_TOKEN|slack token in order to authen and post message via api|
 |2|SLACK_CHANNEL| channel's Id to recevice notication from chat bot|
-|3|TIME_SLEEP| The time to repeat check price of token|
+|3|TIME_SLEEP| The time to re-check price of token|
